@@ -1,0 +1,72 @@
+# Docker only gets what a build needs. An allowlist: anything we add later,
+# like another secret, stays out until we let it in.
+*
+!go.mod
+!go.sum
+!cmd/
+!db/
+!gen/
+!internal/
+# Tests never go into an image, and editing one shouldn't rebuild it.
+**/*_test.go
+**/testdata/
+
+Git
+
+.git .gitignore .gitattributes
+
+Environment variables and secrets
+
+.env .env.* !.env.example *.pem *.key *.crt *.p12 *.pfx secrets/ credentials/
+
+Go build artifacts
+
+bin/ dist/ build/ tmp/ *.test .out coverage/ coverage.
+
+Go workspace
+
+vendor/
+
+IDE and editors
+
+.idea/ .vscode/ *.swp *.swo *~
+
+OS files
+
+.DS_Store Thumbs.db
+
+Logs
+
+*.log logs/
+
+Testing and benchmarks
+
+test-results/ test-output/ k6-results/ *.prof *.pprof
+
+Documentation
+
+docs/ *.md !README.md
+
+Local infrastructure data
+
+postgres-data/ redis-data/ nats-data/ grafana-data/ prometheus-data/
+
+Docker
+
+docker-compose.override.yml Dockerfile.dev
+
+Kubernetes local configuration
+
+.kube/ kubeconfig
+
+Temporary files
+
+.cache/ .npm/ .yarn/ node_modules/
+
+CI/CD
+
+.github/
+
+Backup files
+
+*.bak *.backup *.old
